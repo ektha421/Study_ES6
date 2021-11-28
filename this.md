@@ -1,0 +1,93 @@
+# ES6 공부하기
+## 1. this 키워드
+### 1) this의 역할
+* window
+    * 그냥 쓰거나 일반 함수 안에서 쓰면 window object. 자바스크립트 기본 함수들
+    * 'use strict': 자바스크립트를 엄격하게 사용하는 모드. 함수안에서 this를 쓰는 경우 undefined
+    * 나를 담고 있는 오브젝트를 출력하는 것과 같은 것.
+        ```javascript
+        <script>
+        {
+            console.log(this);
+
+            function 함수(){
+                console.log(this);
+            }  
+
+            <!-- window:{
+                함수(){
+                    console.log(this);
+                }
+            } -->
+
+            함수();
+            window.함수();
+            //스크립트가 결국엔 큰 오브젝트로 감싸져 있는 것과 같아서 호출하는 두가지 방법이 모두 결과가 같음.
+        }
+        </script>
+        ```
+* 오브젝트 내 함수 사용
+    ```javascript
+    var 오브젝트 = {
+        data: 'Kim',
+        함수: function(){
+            console.log(this)
+        }
+    }
+    오브젝트.함수(); //{data:'kim',함수:f}
+    ```
+    * 오브젝트 내 함수 안에서 this 사용시 그 함수를 가지고 있는 오브젝트 자체를 뜻함.
+
+* 새로 생성되는 오브젝트
+    ```javascript
+    <script>
+        var 어쩌구 = {}
+
+        function 기계(){
+            this.이름 = 'kim'
+        }
+
+        var 오브젝트 = new 기계();
+        //기계 {이름: 'kim'}
+    </script>
+    ```
+* 이벤트리스너
+    ```javascript
+    <button id="버튼">버튼</button>
+    <script>
+        document.getElementById('버튼').addEventListener('click', function(e){
+            this; // == e.currentTarget;
+        })
+    </script>
+    ```
+    * 지금 이벤트가 동작하는 곳
+### 2) Case study
+* 오브젝트 내에서 콜백함수를 쓴다면 this는?
+    ```javascript
+    var 오브젝트 = {
+        이름들: ['김','이','박'],
+        함수: function(){
+            console.log(this); 
+            //오브젝트
+            오브젝트.이름들.forEach(function(){
+                console.log(this);
+                 //window (일반함수이므로)
+            })
+        }
+    }
+    ```
+* arrow function 안에서의 this?
+    ```javascript
+    var 오브젝트 = {
+        이름들: ['김','이','박'],
+        함수: function(){
+            console.log(this); 
+            //오브젝트
+            오브젝트.이름들.forEach(()=>{
+                console.log(this);
+                 //오브젝트
+            })
+        }
+    }
+    //내부의 this값을 변화시키지 않음.(외부 this값 그대로 재사용가능. 위의 this를 그대로 물려받음)
+    ```
