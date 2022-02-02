@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+<body>
+    <button id="button">눌러</button> 
+</body>
+
+</html>
+
+<script>
+//<button> 누르면 성공 판정하는 Promise & 성공시 "성공" 출력?
+async function 더하기(){
+    var 프로미스 = new Promise(function(resolve, reject){
+        document.getElementById('button').addEventListener('click', function(){
+            resolve('성공');
+        })
+    });
+
+    var result = await 프로미스;
+    console.log(result);
+}
+
+더하기();
+</script>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+<body>
+    <img id="test" src="https://codingapple1.github.io/kona.jpg"> 
+</body>
+
+</html>
+
+<script>
+//문제1 이미지 로딩 체크 promise로 구현
+let loading = new Promise(function(resolve,reject){
+    //Promise 안에서 성공(), 실패()가 실행되는 경우의 수를 만들어주기
+   const img = document.querySelector('#test');
+
+    img.addEventListener('load', function(){
+        resolve();
+    });
+
+    img.addEventListener('error', function(){
+        reject();
+    });
+}); 
+
+//then(), catch()를 이용해서 성공/실패시 특정 코드들 실행 가능 
+loading.then(function(){
+    console.log('성공');
+}).catch(function(){
+    console.log('실패');
+});
+
+
+//문제2 axios를 promise chaining으로 구현
+//hello.txt요청 성공하면 hello2.txt요청하고 그 결과 출력
+let axiosTest = new Promise(function(resolve, reject){
+    //첫번째 요청
+    axios.get('https://codingapple1.github.io/hello.txt')
+    .then(function(res) {
+        resolve(res);
+    })
+});
+
+axiosTest.then(function(res){
+    //첫번째 요청 성공 결과
+    console.log(res);
+
+    let axiosTest2 = new Promise(function(resolve, reject){
+        //두번째 요청
+    axios.get('https://codingapple1.github.io/hello2.txt')
+    .then(function(res) {
+        resolve(res);
+    });
+});
+    //promise를 반환하면 바로 뒤에 then 붙여서 결과값 얻을 수 있음
+    return axiosTest2;
+
+}).then(function(result){
+    //두번째 요청 성공 결과
+    console.log(result);
+});
+
+</script>
