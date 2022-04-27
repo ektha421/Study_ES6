@@ -1,8 +1,4 @@
 # Study_ES6
-Codding Apple online study
-
-# 2022-Q1-Modern-JavaScript
-API팀 1분기 학습 계획 / 학습 내용
 
 ### 1. 학습 자료(기술서 or 온라인 강의)
 * 모던 자바스크립트 핵심 가이드 / 코딩애플 ES6
